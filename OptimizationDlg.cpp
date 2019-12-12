@@ -2,12 +2,10 @@
 //
 
 #include "stdafx.h"
-#include "LossBlock.h"
 #include "OptimizationDlg.h"
 #include "afxdialogex.h"
 #include <iostream>
 #include <io.h>
-#include "LossBlockDlg.h"
 
 using namespace std;
 // COptimizationDlg 대화 상자
