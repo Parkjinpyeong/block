@@ -1,5 +1,5 @@
 ﻿
-// LossBlockDlg.cpp: 구현 파일
+// BlockDlg.cpp: 구현 파일
 //
 
 #include "stdafx.h"
