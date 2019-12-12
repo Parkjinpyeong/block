@@ -3,8 +3,8 @@
 //
 
 #include "stdafx.h"
-#include "LossBlock.h"
-#include "LossBlockDlg.h"
+#include "Block.h"
+#include "BlockDlg.h"
 #include "afxdialogex.h"
 
 
@@ -18,17 +18,17 @@ using namespace std;
 
 #define BUFSIZE 256  
 
-// CLossBlockDlg 대화 상자
+// CBlockDlg 대화 상자
 
 
 
-CLossBlockDlg::CLossBlockDlg(CWnd* pParent /*=nullptr*/)
-	: CDialogEx(IDD_LOSSBLOCK_DIALOG, pParent)
+CBlockDlg::CBlockDlg(CWnd* pParent /*=nullptr*/)
+	: CDialogEx(IDD_BLOCK_DIALOG, pParent)
 {
 	m_hIcon = AfxGetApp()->LoadIcon(IDR_MAINFRAME);
 }
 
-void CLossBlockDlg::DoDataExchange(CDataExchange* pDX)
+void CBlockDlg::DoDataExchange(CDataExchange* pDX)
 {
 	CDialogEx::DoDataExchange(pDX);
 	DDX_Control(pDX, IDC_HACKERSHOLDINGS_URL_STC, m_HackersHoldingsUrl);
@@ -45,25 +45,25 @@ void CLossBlockDlg::DoDataExchange(CDataExchange* pDX)
 	DDX_Control(pDX, IDC_DBG_BTN, m_DbgBtn);
 }
 
-BEGIN_MESSAGE_MAP(CLossBlockDlg, CDialogEx)
+BEGIN_MESSAGE_MAP(CBlockDlg, CDialogEx)
 	ON_WM_PAINT()
 	ON_WM_QUERYDRAGICON()
-	ON_BN_CLICKED(IDC_MIN_BTN, &CLossBlockDlg::OnBnClickedMinBtn)
-	ON_BN_CLICKED(IDC_CLOSE_BTN, &CLossBlockDlg::OnBnClickedCloseBtn)
-	ON_BN_CLICKED(IDC_HOME_BTN, &CLossBlockDlg::OnBnClickedHomeBtn)
-	ON_BN_CLICKED(IDC_SCAN_BTN, &CLossBlockDlg::OnBnClickedScanBtn)
-	ON_BN_CLICKED(IDC_OPTIMIZATION_BTN, &CLossBlockDlg::OnBnClickedOptimizationBtn)
-	ON_BN_CLICKED(IDC_DIAGNOSTIC_BTN, &CLossBlockDlg::OnBnClickedDiagnosticBtn)
-	ON_BN_CLICKED(IDC_LOG_BTN, &CLossBlockDlg::OnBnClickedLogBtn)
-	ON_BN_CLICKED(IDC_SETTING_BTN, &CLossBlockDlg::OnBnClickedSettingBtn)
-	ON_BN_CLICKED(IDC_UPDATE_BTN, &CLossBlockDlg::OnBnClickedUpdateBtn)
+	ON_BN_CLICKED(IDC_MIN_BTN, &CBlockDlg::OnBnClickedMinBtn)
+	ON_BN_CLICKED(IDC_CLOSE_BTN, &CBlockDlg::OnBnClickedCloseBtn)
+	ON_BN_CLICKED(IDC_HOME_BTN, &CBlockDlg::OnBnClickedHomeBtn)
+	ON_BN_CLICKED(IDC_SCAN_BTN, &CBlockDlg::OnBnClickedScanBtn)
+	ON_BN_CLICKED(IDC_OPTIMIZATION_BTN, &CBlockDlg::OnBnClickedOptimizationBtn)
+	ON_BN_CLICKED(IDC_DIAGNOSTIC_BTN, &CBlockDlg::OnBnClickedDiagnosticBtn)
+	ON_BN_CLICKED(IDC_LOG_BTN, &CBlockDlg::OnBnClickedLogBtn)
+	ON_BN_CLICKED(IDC_SETTING_BTN, &CBlockDlg::OnBnClickedSettingBtn)
+	ON_BN_CLICKED(IDC_UPDATE_BTN, &CBlockDlg::OnBnClickedUpdateBtn)
 	ON_WM_DESTROY()
 	ON_WM_ERASEBKGND()
 	ON_WM_NCHITTEST()
 	ON_WM_LBUTTONDOWN()
-	ON_BN_CLICKED(IDC_DBG_BTN, &CLossBlockDlg::OnBnClickedDbgBtn)
-	ON_STN_CLICKED(IDC_HACKERSHOLDINGS_URL_STC, &CLossBlockDlg::OnClickedHackersholdingsUrlStc)
-	ON_STN_CLICKED(IDC_HELPDESK_URL_STC, &CLossBlockDlg::OnClickedHelpdeskUrlStc)
+	ON_BN_CLICKED(IDC_DBG_BTN, &CBlockDlg::OnBnClickedDbgBtn)
+	ON_STN_CLICKED(IDC_HACKERSHOLDINGS_URL_STC, &CBlockDlg::OnClickedUrlStc)
+	ON_STN_CLICKED(IDC_HELPDESK_URL_STC, &CBlockDlg::OnClickedHelpdeskUrlStc)
 
 	ON_MESSAGE(WM_TRAYICON, OnTrayIcon)
 	ON_COMMAND(WM_APP_EXIT, OnAppExit)
@@ -73,9 +73,9 @@ BEGIN_MESSAGE_MAP(CLossBlockDlg, CDialogEx)
 END_MESSAGE_MAP()
 
 
-// CLossBlockDlg 메시지 처리기
+// CBlockDlg 메시지 처리기
 
-BOOL CLossBlockDlg::OnInitDialog()
+BOOL CBlockDlg::OnInitDialog()
 {
 	CDialogEx::OnInitDialog();
 
@@ -149,8 +149,8 @@ BOOL CLossBlockDlg::OnInitDialog()
 
 	m_UpdateBtn.ShowWindow(SW_HIDE);//업데이트 버튼
 
-	//해커스홀딩스 링크 경로와 고객센터 링크 Static 위치
-	m_HackersHoldingsUrl.MoveWindow(458, 458, 90, 12);
+	//링크 경로와 고객센터 링크 Static 위치
+	m_Url.MoveWindow(458, 458, 90, 12);
 	m_HelpDesk.MoveWindow(548, 458, 60, 12);
 
 	
@@ -191,7 +191,7 @@ BOOL CLossBlockDlg::OnInitDialog()
 //  아래 코드가 필요합니다.  문서/뷰 모델을 사용하는 MFC 응용 프로그램의 경우에는
 //  프레임워크에서 이 작업을 자동으로 수행합니다.
 
-void CLossBlockDlg::OnPaint()
+void CBlockDlg::OnPaint()
 {
 	if (IsIconic())
 	{
@@ -218,13 +218,13 @@ void CLossBlockDlg::OnPaint()
 
 // 사용자가 최소화된 창을 끄는 동안에 커서가 표시되도록 시스템에서
 //  이 함수를 호출합니다.
-HCURSOR CLossBlockDlg::OnQueryDragIcon()
+HCURSOR CBlockDlg::OnQueryDragIcon()
 {
 	return static_cast<HCURSOR>(m_hIcon);
 }
 
 
-BOOL CLossBlockDlg::PreTranslateMessage(MSG* pMsg)
+BOOL CBlockDlg::PreTranslateMessage(MSG* pMsg)
 {
 	// TODO: 여기에 특수화된 코드를 추가 및/또는 기본 클래스를 호출합니다.
 
@@ -232,7 +232,7 @@ BOOL CLossBlockDlg::PreTranslateMessage(MSG* pMsg)
 }
 
 
-void CLossBlockDlg::OnDestroy()
+void CBlockDlg::OnDestroy()
 {
 	CDialogEx::OnDestroy();
 
@@ -240,7 +240,7 @@ void CLossBlockDlg::OnDestroy()
 }
 
 
-BOOL CLossBlockDlg::OnEraseBkgnd(CDC* pDC)
+BOOL CBlockDlg::OnEraseBkgnd(CDC* pDC)
 {
 	if (!m_BGBitmap.m_hObject)
 		return true;
@@ -269,7 +269,7 @@ BOOL CLossBlockDlg::OnEraseBkgnd(CDC* pDC)
 }
 
 
-LRESULT CLossBlockDlg::OnNcHitTest(CPoint point)
+LRESULT CBlockDlg::OnNcHitTest(CPoint point)
 {
 	UINT nHitTest = CDialog::OnNcHitTest(point);
 	// also fake windows out, but this maximizes the window when you double
@@ -280,7 +280,7 @@ LRESULT CLossBlockDlg::OnNcHitTest(CPoint point)
 }
 
 
-void CLossBlockDlg::OnLButtonDown(UINT nFlags, CPoint point)
+void CBlockDlg::OnLButtonDown(UINT nFlags, CPoint point)
 {
 	// TODO: 여기에 메시지 처리기 코드를 추가 및/또는 기본값을 호출합니다.
 
@@ -296,7 +296,7 @@ void CLossBlockDlg::OnLButtonDown(UINT nFlags, CPoint point)
 /////////////////////////////////////////////////////////
 ///////////			홈페이지 URL		/////////////////
 /////////////////////////////////////////////////////////
-void CLossBlockDlg::OnClickedHackersholdingsUrlStc()
+void CBlockDlg::OnClickedUrlStc()
 {
 	// TODO: 여기에 컨트롤 알림 처리기 코드를 추가합니다.
 	ShellExecuteA(NULL, "open", "iexplore", "https://hackersholdings.com/", NULL, SW_HIDE);
@@ -305,7 +305,7 @@ void CLossBlockDlg::OnClickedHackersholdingsUrlStc()
 /////////////////////////////////////////////////////////
 ///////////			고객센터 URL		/////////////////
 /////////////////////////////////////////////////////////
-void CLossBlockDlg::OnClickedHelpdeskUrlStc()
+void CBlockDlg::OnClickedHelpdeskUrlStc()
 {
 	// TODO: 여기에 컨트롤 알림 처리기 코드를 추가합니다.
 	ShellExecuteA(NULL, "open", "iexplore", "https://hackersholdings.com/bbs/board.php?bo_table=qa", NULL, SW_HIDE);
@@ -313,7 +313,7 @@ void CLossBlockDlg::OnClickedHelpdeskUrlStc()
 
 
 
-LRESULT CLossBlockDlg::OnTrayIcon(WPARAM wParam, LPARAM lParam)
+LRESULT CBlockDlg::OnTrayIcon(WPARAM wParam, LPARAM lParam)
 
 {
 
@@ -323,7 +323,7 @@ LRESULT CLossBlockDlg::OnTrayIcon(WPARAM wParam, LPARAM lParam)
 
 }
 
-void CLossBlockDlg::OnAppExit(void)
+void CBlockDlg::OnAppExit(void)
 
 {
 
@@ -333,7 +333,7 @@ void CLossBlockDlg::OnAppExit(void)
 
 }
 
-void CLossBlockDlg::OnDialogShow(void)
+void CBlockDlg::OnDialogShow(void)
 
 {
 
@@ -347,7 +347,7 @@ void CLossBlockDlg::OnDialogShow(void)
 
 }
 
-HBRUSH CLossBlockDlg::OnCtlColor(CDC* pDC, CWnd* pWnd, UINT nCtlColor)
+HBRUSH CBlockDlg::OnCtlColor(CDC* pDC, CWnd* pWnd, UINT nCtlColor)
 {
 	HBRUSH hbr = CDialogEx::OnCtlColor(pDC, pWnd, nCtlColor);
 
