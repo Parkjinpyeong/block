@@ -2,7 +2,6 @@
 //
 
 #include "stdafx.h"
-#include "LossBlock.h"
 #include "SettingDlg.h"
 #include "afxdialogex.h"
 
