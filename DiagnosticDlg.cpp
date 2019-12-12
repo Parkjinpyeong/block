@@ -2,7 +2,6 @@
 //
 
 #include "stdafx.h"
-#include "LossBlock.h"
 #include "DiagnosticDlg.h"
 #include "afxdialogex.h"
 
@@ -61,11 +60,6 @@ END_MESSAGE_MAP()
 BOOL CDiagnosticDlg::OnInitDialog()
 {
 	CDialogEx::OnInitDialog();
-	//GetDlgItem(IDC_FORMER_LIST)->SetWindowPos(NULL, 170, 60, 200, 280, SWP_NOACTIVATE);
-	//GetDlgItem(IDC_RECENT_LIST)->SetWindowPos(NULL, 380, 60, 200, 280, SWP_NOACTIVATE);
-	//GetDlgItem(IDC_DATE_COMBO)->SetWindowPos(NULL, 170, 30, 200, 30, SWP_NOACTIVATE);
-	//GetDlgItem(IDC_TODAY_STC)->SetWindowPos(NULL, 410, 35, 150, 30, SWP_NOACTIVATE);
-
 	
 	CPngImage m_BGImage;
 	m_BGImage.Load(IDB_TOTAL_BG, AfxGetInstanceHandle());
@@ -77,24 +71,11 @@ BOOL CDiagnosticDlg::OnInitDialog()
 	m_ToolbarStc.MoveWindow(298, 20, 70, 16);
 	m_DnsStc.MoveWindow(418, 20, 28, 16);
 	m_CookieStc.MoveWindow(496, 20, 22, 16);
-
-	//m_HistroyDate.MoveWindow(83, 80.5, 134, 24);
-	//m_CurrentDate.MoveWindow(363, 80.5, 172, 24);
-
 	m_HistroyDate.MoveWindow(83, 50, 134, 24);
 	m_CurrentDate.MoveWindow(315, 50, 172, 24);
-
-	//m_recent_list.MoveWindow(363, 120, 172, 200);
 	m_recent_list.MoveWindow(300, 80, 280, 250);
 
 
-	//CRect rt;
-	//m_recent_list.GetWindowRect(&rt);
-	//m_recent_list.SetExtendedStyle(LVS_EX_GRIDLINES | LVS_EX_FULLROWSELECT);
-	//m_recent_list.InsertColumn(0, TEXT("프로그램"), LVCFMT_LEFT, rt.Width() * 0.3);
-	//m_recent_list.InsertColumn(1, TEXT("경로"), LVCFMT_CENTER, rt.Width() * 0.7);
-	
-	
 	
 	
 
@@ -146,10 +127,6 @@ BOOL CDiagnosticDlg::OnEraseBkgnd(CDC* pDC)
 ////	시작프로그램		/////////////
 void CDiagnosticDlg::OnStnClickedAutorunStc()
 {
-	//m_former_list.ShowWindow(SW_SHOW);
-	//m_recent_list.ShowWindow(SW_SHOW);
-	//m_former_list.ResetContent();
-	
 	CRect rt;
 	while (m_recent_list.GetHeaderCtrl()->GetItemCount() > 0)
 	{
